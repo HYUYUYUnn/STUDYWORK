@@ -63,6 +63,7 @@ int main(void)
         }
         else
         {
+            printf("WRONG INPUT");
             continue;
         }
     }
