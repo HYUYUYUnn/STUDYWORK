@@ -18,10 +18,21 @@ int main(void)
     while (TRUE)
     {
         printf("LEFT : %d\n", coin);
-        printf("COMMAND : ");
+        printf("\nCOMMAND : ");
         scanf("%d", &con);
         printf("\n");
-        if (con == 1)
+        if (con == 0)
+        {
+            printf("RATING : %d+\n", rate);
+            printf("TOTAL COUNT : %d\n", succ + fail);
+            printf("SUCCESS COUNT : %d\n", succ);
+            printf("FAILED COUNT : %d\n", fail);
+            printf("USED COIN : %d\n", usedcoin);
+            printf("LEFT COIN : %d\n", coin);
+            return 0;
+        }
+        
+        else if (con == 1)
         {
             if (coin >= 500)
             {
@@ -51,19 +62,44 @@ int main(void)
                 coin = coin + addcoin;
             }
         }
-        else if (con == 2)
+        
+        else if(con == 2)
         {
-            printf("RATING : %d+\n", rate);
-            printf("TOTAL COUNT : %d\n", succ + fail);
-            printf("SUCCESS COUNT : %d\n", succ);
-            printf("FAILED COUNT : %d\n", fail);
-            printf("USED COIN : %d\n", usedcoin);
-            printf("LEFT COIN : %d\n", coin);
-            return 0;
-        }
+        	if (coin >= 5000)
+            {
+                coin -= 5000;
+                for(int i; i > 10; i++)
+                {
+					
+	                random = rand() % 9 + 1;
+	                if (random > rate)
+	                {
+	                    rate++;
+	                    printf("%d+ SUCCESS\n", rate);
+	                    succ++;
+	
+	                }
+	                else
+	                {
+	                    rate--;
+	                    printf("%d+ FAIL\n", rate);
+	                    fail++;
+	
+	                }
+	                usedcoin += 5000;
+				}
+            }
+            else
+            {
+                printf("ADD COIN : ");
+                scanf("%d", &addcoin);
+                coin = coin + addcoin;
+            }
+		}
+		
         else
         {
-            printf("WRONG INPUT");
+            printf("WRONG INPUT\n");
             continue;
         }
     }
