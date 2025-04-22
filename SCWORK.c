@@ -1,6 +1,27 @@
 #include <stdio.h>
 #include <string.h>
+//#include <stdlib.h>
+//#include <time.h>
+#define TRUE 1
 
+/*int random(int rate)
+{
+	srand(time(NULL));
+    int random = 0;
+    
+	random = rand() % 9 + 1;
+    if (random > rate)
+    {
+        printf("%d+ SUCCESS\n", rate);
+		return 1;
+	}
+    else
+    {
+        printf("%d+ FAIL\n", rate);
+        return -1;
+	}
+} 
+*/
 
 int main(void)
 
@@ -9,7 +30,7 @@ int main(void)
 	fp = fopen("TEST.txt", "a+");
 	if(fp == NULL)
 	{
-		printf("∆ƒ¿œ æ»ø≠∏≤");
+		printf("ÌååÏùº ÏïàÏó¥Î¶º");
 		return -1;
 	}
 	
@@ -18,15 +39,26 @@ int main(void)
 	char PW[100];
 	int UID;
 	char NAME[100];
+	int rate = 0;
+	int coin = 0;
 	
 	
 	char buffer[100];
 	int num, num2, i, command, CON;
 	
 	
-	while(CON)
+	while(TRUE)
 	{
-		printf("1 / 2 / 3\n");
+		FILE *fp = NULL;
+		fp = fopen("TEST.txt", "a+");
+		if(fp == NULL)
+		{
+		printf("ÌååÏùº ÏïàÏó¥Î¶º");
+		return -1;
+		}
+		
+		
+		printf("LOGIN(1) / SIGN UP(2) / END(3)\n");
 		scanf("%d", &command);
 		
 		
@@ -48,16 +80,19 @@ int main(void)
 					
 					if(strstr(buffer, PW) != NULL)
 					{
-						printf("TRUE");
+						fgets(buffer, 100, fp);
+						printf("%s\n", buffer);
+						break;
 					}
 					else
 					{
-						printf("FALSE");
+						printf("FALSE\n");
+						break;
 					}
 				}
 				else if(feof(fp) && strstr(buffer, ID) == NULL)
 				{
-					printf("NOOOO\n");
+					printf("NO ID\n");
 				}
 			}	
 		}
@@ -65,6 +100,14 @@ int main(void)
 		{
 			printf("ID : ");
 			scanf("%s", ID);
+			for(i = 1; EOF; i = i * 2)
+			{
+				fgets(buffer, 100, fp);
+				if(strstr(buffer, ID) != NULL)
+				{
+					printf("ONN");
+				}
+			}
 			printf("PW : ");
 			scanf("%s", PW);
 			printf("NAME : ");
@@ -76,12 +119,16 @@ int main(void)
 			fputs("PW : ", fp);
 			fputs(PW, fp);
 			fputs("\n", fp);
+			fputs("NAME : ", fp);
+			fputs(NAME, fp);
+			fputs("\n", fp);
 			fputs("--------------------\n", fp);
+			fclose(fp);
 		} 
 		else if(command == 3)
 		{
 			printf("END");
-			CON = 0;
+			break;
 		}
 		else
 		{
@@ -92,4 +139,3 @@ int main(void)
 	fclose(fp);
 	return 0;
 }
-
