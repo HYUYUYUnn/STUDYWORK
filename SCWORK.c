@@ -152,7 +152,7 @@ int main(void)
 						break;
 					}
 				}
-				else if(EOF && strstr(buffer, ID) == NULL)
+				else if(!feof(fp) && strstr(buffer, ID) == NULL)
 				{
 					printf("NO ID\n");
 				}
