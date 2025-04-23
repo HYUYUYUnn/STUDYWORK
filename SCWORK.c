@@ -23,11 +23,73 @@
 } 
 */
 
+int check(char ID[100])
+{
+
+	
+	FILE *fp = NULL;
+	fp = fopen("TEST.txt", "r");
+	if(fp == NULL)
+	{
+	printf("파일 안열림");
+	return -1;
+	}
+	
+	
+	char buffer[100];
+	int i = 0;
+	
+	while(EOF)
+	{
+		i++;
+		fgets(buffer, 100, fp);
+		if(i % 4 == 2 || i == 2)
+		{
+			
+			if(strstr(buffer, ID) != NULL)
+			{
+				printf("ONN");
+				return 1;
+			}
+			else
+			{
+				
+				return 0;
+			}
+		}
+	}
+}
+
+
+void signup(char ID[100], char PW[100], char NAME[100])
+{
+	FILE *fp = NULL;
+	fp = fopen("TEST.txt", "a");
+	if(fp == NULL)
+	{
+		printf("파일 안열림");
+		return -1;
+	}
+	
+	fputs("ID : ", fp);
+	fputs(ID, fp);
+	fputs("\n", fp);
+	fputs("PW : ", fp);
+	fputs(PW, fp);
+	fputs("\n", fp);
+	fputs("NAME : ", fp);
+	fputs(NAME, fp);
+	fputs("\n", fp);
+	fputs("--------------------\n", fp);
+	fclose(fp);
+}
+
+
 int main(void)
 
 {
 	FILE *fp = NULL;
-	fp = fopen("TEST.txt", "a+");
+	fp = fopen("TEST.txt", "r");
 	if(fp == NULL)
 	{
 		printf("파일 안열림");
@@ -37,10 +99,10 @@ int main(void)
 	
 	char ID[100];
 	char PW[100];
-	int UID;
+//	int UID;
 	char NAME[100];
-	int rate = 0;
-	int coin = 0;
+//	int rate = 0;
+//	int coin = 0;
 	
 	
 	char buffer[100];
@@ -90,7 +152,7 @@ int main(void)
 						break;
 					}
 				}
-				else if(feof(fp) && strstr(buffer, ID) == NULL)
+				else if(EOF && strstr(buffer, ID) == NULL)
 				{
 					printf("NO ID\n");
 				}
@@ -100,30 +162,27 @@ int main(void)
 		{
 			printf("ID : ");
 			scanf("%s", ID);
-			for(i = 1; EOF; i = i * 2)
+			if(check(ID) == 1)
 			{
-				fgets(buffer, 100, fp);
-				if(strstr(buffer, ID) != NULL)
-				{
-					printf("ONN");
-				}
+				printf("EXIST\n");
+				
 			}
-			printf("PW : ");
-			scanf("%s", PW);
-			printf("NAME : ");
-			scanf("%s", NAME);
+			else if(check(0))
+			{
+				printf("YES\n");
+				printf("PW : ");
+				scanf("%s", PW);
+				printf("NAME : ");
+				scanf("%s", NAME);
+				signup(ID, PW, NAME);
+			}
+			else
+			{
+				printf("ERROR");
+			}
+			
 		
-			fputs("ID : ", fp);
-			fputs(ID, fp);
-			fputs("\n", fp);
-			fputs("PW : ", fp);
-			fputs(PW, fp);
-			fputs("\n", fp);
-			fputs("NAME : ", fp);
-			fputs(NAME, fp);
-			fputs("\n", fp);
-			fputs("--------------------\n", fp);
-			fclose(fp);
+			
 		} 
 		else if(command == 3)
 		{
