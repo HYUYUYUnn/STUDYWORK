@@ -3,6 +3,7 @@
 //#include <stdlib.h>
 //#include <time.h>
 #define TRUE 1
+#define ONFILE "TEST.txt"
 
 /*int random(int rate)
 {
@@ -28,7 +29,7 @@ int check(char ID[100])
 
 	
 	FILE *fp = NULL;
-	fp = fopen("TEST.txt", "r");
+	fp = fopen(ONFILE, "r");
 	if(fp == NULL)
 	{
 	printf("파일 안열림");
@@ -48,13 +49,13 @@ int check(char ID[100])
 			
 			if(strstr(buffer, ID) != NULL)
 			{
-				printf("ONN");
-				return 1;
+				
+				return 1;  // 이미 존재함  
 			}
 			else
 			{
 				
-				return 0;
+				return 0; // 존재하지 않음  
 			}
 		}
 	}
@@ -64,7 +65,7 @@ int check(char ID[100])
 void signup(char ID[100], char PW[100], char NAME[100])
 {
 	FILE *fp = NULL;
-	fp = fopen("TEST.txt", "a");
+	fp = fopen(ONFILE, "a");
 	if(fp == NULL)
 	{
 		printf("파일 안열림");
@@ -85,16 +86,52 @@ void signup(char ID[100], char PW[100], char NAME[100])
 }
 
 
-int main(void)
-
+int login(char buffer[100], char ID[100], char PW[100] )
 {
 	FILE *fp = NULL;
-	fp = fopen("TEST.txt", "r");
+	fp = fopen(ONFILE, "r");
 	if(fp == NULL)
 	{
 		printf("파일 안열림");
 		return -1;
-	}
+	}	
+		
+	while(!feof(fp))
+	{
+		
+				
+		fgets(buffer, 100, fp);
+		if(strstr(buffer, ID) != NULL)
+		{
+			fgets(buffer, 100, fp);
+			
+			if(strstr(buffer, PW) != NULL)
+			{
+				fgets(buffer, 100, fp);
+				printf("%s\n", buffer);
+				fclose(fp);
+				return 1;
+			}
+			else
+			{
+				printf("WRONG PASSWORD\n");
+				fclose(fp);
+				return 2;
+			}
+		}
+		else if(feof(fp) && strstr(buffer, ID) == NULL)
+		{
+			printf("NO ID\n");
+			fclose(fp);
+			return 3;
+		}
+	}		
+}
+
+int main(void)
+
+{
+	
 	
 	
 	char ID[100];
@@ -103,73 +140,46 @@ int main(void)
 	char NAME[100];
 //	int rate = 0;
 //	int coin = 0;
-	
+	int command;
 	
 	char buffer[100];
-	int num, num2, i, command, CON;
+//	int num, num2;
 	
 	
 	while(TRUE)
 	{
-		FILE *fp = NULL;
-		fp = fopen("TEST.txt", "a+");
-		if(fp == NULL)
-		{
-		printf("파일 안열림");
-		return -1;
-		}
 		
-		
-		printf("LOGIN(1) / SIGN UP(2) / END(3)\n");
+		printf("END(0) / LOGIN(1) / SIGN UP(2) \n");
 		scanf("%d", &command);
 		
+		if(command == 0)
+		{
+			printf("END");
+			break;
+		}
 		
-		if(command == 1)
+		else if(command == 1)
 		{
 			printf("ID : ");
 			scanf("%s", &ID);
-			while(!feof(fp))
-			{
-				num++;
-				
-				fgets(buffer, 100, fp);
-				if(strstr(buffer, ID) != NULL)
-				{
-					fgets(buffer, 100, fp);
-					
-					printf("PW : ");
-					scanf("%s", &PW);
-					
-					if(strstr(buffer, PW) != NULL)
-					{
-						fgets(buffer, 100, fp);
-						printf("%s\n", buffer);
-						break;
-					}
-					else
-					{
-						printf("FALSE\n");
-						break;
-					}
-				}
-				else if(!feof(fp) && strstr(buffer, ID) == NULL)
-				{
-					printf("NO ID\n");
-				}
-			}	
+			printf("PW : ");
+			scanf("%s", &PW);
+			
+			login(buffer, ID, PW);
+			
 		}
 		else if(command == 2)
 		{
 			printf("ID : ");
 			scanf("%s", ID);
+			
 			if(check(ID) == 1)
 			{
 				printf("EXIST\n");
 				
 			}
-			else if(check(0))
+			else if(check(ID) == 0)
 			{
-				printf("YES\n");
 				printf("PW : ");
 				scanf("%s", PW);
 				printf("NAME : ");
@@ -178,23 +188,18 @@ int main(void)
 			}
 			else
 			{
-				printf("ERROR");
+				printf("ERROR\n");
 			}
 			
 		
 			
 		} 
-		else if(command == 3)
-		{
-			printf("END");
-			break;
-		}
+		
 		else
 		{
 			printf("RE\n");
 		}
 	
 	}
-	fclose(fp);
 	return 0;
 }
