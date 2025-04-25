@@ -1,19 +1,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <conio.h>
 #define TRUE 1
 
 int main(void)
 {
-    int coin, addcoin, usedcoin;
+    int coin = 0;
+	int addcoin, usedcoin, i;
     int con;
     int succ = 0;
     int fail = 0;
+    int nsucc = 0;
+    int nfail = 0;
     srand(time(NULL));
     int random = 0;
     int rate = 0;
-    printf("COIN : ");
-    scanf("%d", &coin);
+    
 
     while (TRUE)
     {
@@ -33,6 +36,30 @@ int main(void)
         }
         
         else if (con == 1)
+		{
+			while(TRUE)
+			{
+				char irt = getch();
+				if(irt == 100 || irt == 68)
+				{
+				
+					coin = coin + 500;
+					printf("ADD COIN : %d\n", coin);
+				}
+				else if(irt == 97 || irt == 65)
+				{
+					break;
+				}
+				else
+				{
+					continue;
+				}
+				
+	            	
+	        }
+		}
+		 
+        else if (con == 2)
         {
             if (coin >= 500)
             {
@@ -57,44 +84,53 @@ int main(void)
             }
             else
             {
-                printf("ADD COIN : ");
-                scanf("%d", &addcoin);
-                coin = coin + addcoin;
+                printf("코인이 %d개 부족하다.\n", 500 - coin);
             }
         }
         
-        else if(con == 2)
+        else if(con == 3)
         {
         	if (coin >= 5000)
             {
                 coin -= 5000;
-                for(int i; i > 10; i++)
+                for(i = 0; i < 10; i++)
                 {
 					
 	                random = rand() % 9 + 1;
 	                if (random > rate)
 	                {
 	                    rate++;
-	                    printf("%d+ SUCCESS\n", rate);
-	                    succ++;
+	                    
+	                    nsucc++;
 	
 	                }
 	                else
 	                {
 	                    rate--;
-	                    printf("%d+ FAIL\n", rate);
-	                    fail++;
+	                    
+	                    nfail++;
 	
 	                }
 	                usedcoin += 5000;
 				}
+				
+				succ = nsucc + succ;
+				fail = nfail + fail;
+				printf("%d+ SUCCESS\n", nsucc);
+				printf("%d+ FAIL\n", nfail);
+				printf("%d+ RATE\n", rate);
+				
+				nsucc = 0;
+				nfail = 0;
             }
             else
             {
-                printf("ADD COIN : ");
-                scanf("%d", &addcoin);
-                coin = coin + addcoin;
+                printf("코인이 %d개 부족하다.\n", 500 - coin);
             }
+		}
+		else if(con == 4)
+		{
+			break;
 		}
 		
         else
