@@ -39,14 +39,15 @@ int main(void)
 		{
 			while(TRUE)
 			{
+				printf("코인추가(A) / 종료(D)");
 				char irt = getch();
-				if(irt == 100 || irt == 68)
+				if(irt == 100 || irt == 68) // D, d 키 입력
 				{
 				
 					coin = coin + 500;
 					printf("ADD COIN : %d\n", coin);
 				}
-				else if(irt == 97 || irt == 65)
+				else if(irt == 97 || irt == 65) // A, a 키 입력
 				{
 					break;
 				}
