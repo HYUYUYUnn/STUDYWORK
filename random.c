@@ -7,13 +7,14 @@
 int main(void)
 {
     int coin = 0;
-	int addcoin, usedcoin, i;
+	int addcoin, i;
+	int usedcoin = 0;
     int con;
     int succ = 0;
     int fail = 0;
     int nsucc = 0;
     int nfail = 0;
-    srand(time(NULL));
+    srand(time(NULL)); // 무작위 값을 위한 초기화  
     int random = 0;
     int rate = 0;
     
@@ -22,7 +23,7 @@ int main(void)
     {
     	printf("\n");
         printf("COIN : %d\n", coin);
-        printf("\nCOMMAND : ");
+        printf("\nTOTAL(0) / INSERT COIN(1) / 1 TRY(2) / 10 TRY(3) / END(4) : ");
         scanf("%d", &con);
         printf("\n");
         if (con == 0)
@@ -35,7 +36,6 @@ int main(void)
             printf("USED COIN : %d\n", usedcoin);
             printf("LEFT COIN : %d\n", coin);
             printf("\n----------------------\n");
-            return 0;
         }
         
         else if (con == 1)
@@ -90,7 +90,7 @@ int main(void)
                 for(i = 0; i < 10; i++)
                 {
 					
-	                random = rand() % 9 + 1;
+	                random = rand() % 10 + 1; // rand() % (최대값-최소값-1) + 최소값
 	                if (random > rate)
 	                {
 	                    rate++;
