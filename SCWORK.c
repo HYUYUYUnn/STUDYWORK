@@ -86,7 +86,7 @@ void signup(char ID[100], char PW[100], char NAME[100])
 }
 
 
-int login(char buffer[100], char ID[100], char PW[100] )
+int login(char ID[100], char PW[100] )
 {
 	FILE *fp = NULL;
 	fp = fopen(ONFILE, "r");
@@ -95,12 +95,17 @@ int login(char buffer[100], char ID[100], char PW[100] )
 		printf("파일 안열림");
 		return -1;
 	}	
-		
+	
+	char buffer[100];
+	
 	while(!feof(fp))
 	{
 		
 				
 		fgets(buffer, 100, fp);
+		
+	
+		
 		if(strstr(buffer, ID) != NULL)
 		{
 			fgets(buffer, 100, fp);
@@ -142,7 +147,6 @@ int main(void)
 //	int coin = 0;
 	int command;
 	
-	char buffer[100];
 //	int num, num2;
 	
 	
@@ -165,8 +169,8 @@ int main(void)
 			printf("PW : ");
 			scanf("%s", &PW);
 			
-			login(buffer, ID, PW);
-			
+			login(ID, PW);
+		
 		}
 		else if(command == 2)
 		{
