@@ -20,44 +20,29 @@ int main(void)
 
     while (TRUE)
     {
-        printf("LEFT : %d\n", coin);
+    	printf("\n");
+        printf("COIN : %d\n", coin);
         printf("\nCOMMAND : ");
         scanf("%d", &con);
         printf("\n");
         if (con == 0)
         {
+        	printf("----------------------\n\n");
             printf("RATING : %d+\n", rate);
             printf("TOTAL COUNT : %d\n", succ + fail);
             printf("SUCCESS COUNT : %d\n", succ);
             printf("FAILED COUNT : %d\n", fail);
             printf("USED COIN : %d\n", usedcoin);
             printf("LEFT COIN : %d\n", coin);
+            printf("\n----------------------\n");
             return 0;
         }
         
         else if (con == 1)
 		{
-			while(TRUE)
-			{
-				printf("코인추가(A) / 종료(D)");
-				char irt = getch();
-				if(irt == 100 || irt == 68) // D, d 키 입력
-				{
-				
-					coin = coin + 500;
-					printf("ADD COIN : %d\n", coin);
-				}
-				else if(irt == 97 || irt == 65) // A, a 키 입력
-				{
-					break;
-				}
-				else
-				{
-					continue;
-				}
-				
-	            	
-	        }
+			printf("INSERT COIN : ");
+			scanf("%d", &addcoin);
+			coin = coin + addcoin;
 		}
 		 
         else if (con == 2)
@@ -69,14 +54,20 @@ int main(void)
                 if (random > rate)
                 {
                     rate++;
-                    printf("%d+ SUCCESS\n", rate);
-                    succ++;
+                    printf("----------------------\n\n");
+                    printf("SUCCESS\n");
+                    printf("%d+ RATE\n", rate);
+					printf("\n----------------------\n");
+					succ++;
 
                 }
                 else
                 {
                     rate--;
-                    printf("%d+ FAIL\n", rate);
+                    printf("----------------------\n\n");
+                    printf("FAIL\n");
+                    printf("%d+ RATE\n", rate);
+                    printf("\n----------------------\n");
                     fail++;
 
                 }
@@ -85,7 +76,9 @@ int main(void)
             }
             else
             {
+            	printf("----------------------\n\n");
                 printf("코인이 %d개 부족하다.\n", 500 - coin);
+                printf("\n----------------------\n");
             }
         }
         
@@ -114,19 +107,22 @@ int main(void)
 	                }
 	                usedcoin += 5000;
 				}
-				
-				succ = nsucc + succ;
-				fail = nfail + fail;
+				printf("----------------------\n\n");
 				printf("%d+ SUCCESS\n", nsucc);
 				printf("%d+ FAIL\n", nfail);
 				printf("%d+ RATE\n", rate);
+				printf("\n----------------------\n");
 				
+				succ = nsucc + succ;
+				fail = nfail + fail;
 				nsucc = 0;
 				nfail = 0;
             }
             else
             {
+            	printf("----------------------\n\n");
                 printf("코인이 %d개 부족하다.\n", 500 - coin);
+                printf("\n----------------------\n");
             }
 		}
 		else if(con == 4)
