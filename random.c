@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <conio.h>
+#include <math.h>
 #define TRUE 1
 
 int main(void)
@@ -22,10 +23,11 @@ int main(void)
     while (TRUE)
     {
     	printf("\n");
-        printf("COIN : %d\n", coin);
+        printf("TOTAL COIN : %d\n", coin);
         printf("\nTOTAL(0) / INSERT COIN(1) / 1 TRY(2) / 10 TRY(3) / END(4) : ");
         scanf("%d", &con);
         printf("\n");
+        
         if (con == 0)
         {
         	printf("----------------------\n\n");
@@ -40,8 +42,19 @@ int main(void)
         
         else if (con == 1)
 		{
-			printf("INSERT COIN : ");
+			/*printf("INSERT COIN : ");
 			scanf("%d", &addcoin);
+			coin = coin + addcoin;*/
+			
+			int MAX = 10000 + pow(rate, 3) * 100;
+			int MIN = pow(rate, 3) * 60;
+		
+			addcoin = rand() % MAX + MIN;
+			printf("----------------------\n\n");
+			printf("ADDED : %d\n", addcoin);
+			printf("\n----------------------\n");
+			
+			
 			coin = coin + addcoin;
 		}
 		 
@@ -90,7 +103,7 @@ int main(void)
                 for(i = 0; i < 10; i++)
                 {
 					
-	                random = rand() % 10 + 1; // rand() % (최대값-최소값-1) + 최소값
+	                random = rand() % 10 + 1; // rand() % (최대값-최소값-1) + 최소값 (1 ~ 10)
 	                if (random > rate)
 	                {
 	                    rate++;
