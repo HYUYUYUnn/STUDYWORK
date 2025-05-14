@@ -49,7 +49,7 @@ int main(void)
 			int MAX = 10000 + pow(rate, 3) * 100;
 			int MIN = pow(rate, 3) * 60;
 		
-			addcoin = rand() % MAX + MIN;
+			addcoin = rand() % MAX + MIN; // 0 ~ MAX - 1 에 MIN만큼 최소값과 최댓값에 더해진다
 			printf("----------------------\n\n");
 			printf("ADDED : %d\n", addcoin);
 			printf("\n----------------------\n");
