@@ -44,17 +44,17 @@ int check(char ID[100])
 	{
 		i++;
 		fgets(buffer, 100, fp);
-		if(i % 4 == 2 || i == 2)
+		if(i % 4 == 1 || i == 1)
 		{
 			
 			if(strstr(buffer, ID) != NULL)
 			{
-				
+				fclose(fp);
 				return 1;  // 이미 존재함  
 			}
 			else
 			{
-				
+				fclose(fp);
 				return 0; // 존재하지 않음  
 			}
 		}
@@ -150,9 +150,12 @@ int main(void)
 //	int num, num2;
 	
 	
+	
 	while(TRUE)
 	{
-		
+		char callid[100] = "ID : ";
+		char callpw[100] = "PW : ";
+	
 		printf("END(0) / LOGIN(1) / SIGN UP(2) \n");
 		scanf("%d", &command);
 		
@@ -166,10 +169,12 @@ int main(void)
 		{
 			printf("ID : ");
 			scanf("%s", &ID);
+			strcat(callid, ID); // callid에 ID를 합침 
 			printf("PW : ");
 			scanf("%s", &PW);
+			strcat(callpw, PW); // callpw에 PW를 합침 
 			
-			login(ID, PW);
+			login(callid, callpw);
 		
 		}
 		else if(command == 2)
