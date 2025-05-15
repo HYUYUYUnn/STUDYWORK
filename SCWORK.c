@@ -32,27 +32,27 @@ int check(char ID[100])
 	fp = fopen(ONFILE, "r");
 	if(fp == NULL)
 	{
-	printf("파일 안열림");
-	return -1;
+		printf("파일 안열림");
+		return -1;
 	}
 	
 	
 	char buffer[100];
 	int i = 0;
 	
-	while(EOF)
+	while(!feof(fp))
 	{
 		i++;
 		fgets(buffer, 100, fp);
+		
 		if(i % 4 == 1 || i == 1)
 		{
-			
 			if(strstr(buffer, ID) != NULL)
 			{
 				fclose(fp);
 				return 1;  // 이미 존재함  
 			}
-			else
+			else if(feof(fp) && strstr(buffer, ID) == NULL)
 			{
 				fclose(fp);
 				return 0; // 존재하지 않음  
